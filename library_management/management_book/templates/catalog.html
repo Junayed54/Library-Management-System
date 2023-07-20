@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container">
+    <h2>Book Catalog</h2>
+    {% if books %}
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>ISBN</th>
+            <th>Publication Date</th>
+            <th>Genre</th>
+            <th>Availability</th>
+            <th>Quantity</th>
+            {% if  user.is_authenticated%}
+            <th>Wishlist</th>
+            <th>Borrow</th>
+            {% endif %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for book in books %}
+            <tr>
+              <td>{{ book.title }}</td>
+              <td>{{ book.author }}</td>
+              <td>{{ book.isbn }}</td>
+              <td>{{ book.publication_date }}</td>
+              <td>{{ book.genre }}</td>
+              <td>{% if book.availability %}Available{% else %}Unavailable{% endif %}</td>
+              <td>{{ book.quantity }}</td>
+              <td>
+                {% if user.is_authenticated %}
+                  <form action="{% url 'add_to_wishlist' book.isbn %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary">Add to Wishlist</button>
+                  </form>
+                {% endif %}
+              </td>
+              <td>
+                {% if user.is_authenticated %}
+                  <form action="{% url 'borrow_book' book.isbn %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-success">Borrow</button>
+                  </form>
+                {% endif %}
+              </td>
+            </tr>
+          {% empty %}
+            <tr>
+              <td colspan="8">No books available.</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p>No books available.</p>
+    {% endif %}
+  </div>
+{% endblock %}

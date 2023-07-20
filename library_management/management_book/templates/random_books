@@ -1,0 +1,11 @@
+
+{% if random_book %}
+  <div class="random-book" style="border: 1px solid #ccc; padding: 10px; border-radius: 5px; background-color: #f9f9f9; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); margin: 20px 0;">
+    <h3 style="margin-top: 0; color: #333;">Random Book</h3>
+    <p><strong>Title:</strong> {{ random_book.title }}</p>
+    <p><strong>Author:</strong> {{ random_book.author }}</p>
+    <!-- Add other book details as needed -->
+  </div>
+{% else %}
+  <p>No books available.</p>
+{% endif %}

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container">
+    <h2>Borrowed Books</h2>
+    {% if borrowed_books %}
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Due Date</th>
+            <th>ISBN</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for borrowed_book in borrowed_books %}
+            <tr>
+              <td>{{ borrowed_book.book.title }}</td>
+              <td>{{ borrowed_book.book.author }}</td>
+              <td>{{ borrowed_book.due_date }}</td>
+              <td>{{borrowed_book.book.isbn }}</td>
+              <td><a href="{% url 'return_book' borrowed_book_id=borrowed_book.book.isbn %}">Return Book</a></td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p>No books borrowed.</p>
+    {% endif %}
+  </div>
+{% endblock %}
