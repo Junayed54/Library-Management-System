@@ -27,7 +27,7 @@ def base(request):
     return render(request, 'base.html', {'books': random_books})
 
 
-def book_catalog(request):
+def all_books(request):
     books = Book_list.objects.all()
     return render(request, 'all_books.html', {'books': books})
 
