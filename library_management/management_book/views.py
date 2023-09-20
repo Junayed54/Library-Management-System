@@ -29,7 +29,7 @@ def base(request):
 
 def book_catalog(request):
     books = Book_list.objects.all()
-    return render(request, 'catalog.html', {'books': books})
+    return render(request, 'all_books.html', {'books': books})
 
 def book_search(request):
     form = BookSearchForm(request.GET or None)
